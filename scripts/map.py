@@ -20,7 +20,8 @@ class Map:
 
   def render(self, surface):
 
+
     for y in range(8):
       for x in range(8):
         if map[y*8 + x] == 1:
-          pygame.draw.rect(surface, (255, 255, 255), pygame.Rect(x*self.tile_size, y*self.tile_size, self.tile_size, self.tile_size))
+          pygame.draw.rect(surface, (255, 255, 255), pygame.Rect(x*self.tile_size, y*self.tile_size , self.tile_size, self.tile_size), 1)
