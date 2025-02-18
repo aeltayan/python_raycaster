@@ -1,15 +1,18 @@
 import pygame 
 
-map = [
-  1,1,1,1,1,1,1,1,
-  1,0,0,0,0,0,0,1,
-  1,0,1,1,0,0,0,1,
-  1,0,0,0,0,0,0,1,
-  1,0,0,0,1,1,0,1,
-  1,0,0,0,1,0,0,1,
-  1,0,0,0,0,0,0,1,
-  1,1,1,1,1,1,1,1,
+offsets = [(1,1), (1,0), (0,1), (-1,0), (0,-1), (-1,-1), (1,-1), (-1,1)]
+
+map = [[1,1,1,1,1,1,1,1],
+       [1,0,0,0,0,0,0,1],
+       [1,0,0,0,1,0,0,1],
+       [1,0,1,1,1,0,0,1],
+       [1,0,0,0,0,0,0,1],
+       [1,0,0,1,1,0,0,1],
+       [1,0,0,0,0,0,0,1],
+       [1,1,1,1,1,1,1,1],
 ]
+
+
 
 
 class Map:
@@ -17,11 +20,21 @@ class Map:
     self.game = game
     self.tile_size = tile_size
 
+  
+  def check_collisions(self, pos):
+
+    grid_x = int(pos[0] // self.tile_size)
+    grid_y = int(pos[1] // self.tile_size)
+
+    if map[grid_y][grid_x] == 1:
+      return True
+    return False
 
   def render(self, surface):
 
-
-    for y in range(8):
-      for x in range(8):
-        if map[y*8 + x] == 1:
-          pygame.draw.rect(surface, (255, 255, 255), pygame.Rect(x*self.tile_size, y*self.tile_size , self.tile_size, self.tile_size), 1)
+    for row_index, row in enumerate(map):
+      for column_index, column in enumerate(map):
+        if map[row_index][column_index] == 1:
+          pygame.draw.rect(surface, "white", pygame.Rect(column_index * self.tile_size, row_index*self.tile_size+1, self.tile_size-1, self.tile_size-1))
+        else:
+          pygame.draw.rect(surface, "white", pygame.Rect(column_index * self.tile_size, row_index*self.tile_size, self.tile_size, self.tile_size),1)

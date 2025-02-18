@@ -10,10 +10,10 @@ class Game:
     self.clock = pygame.time.Clock()
     self.delta_time = 1
     self.screen = pygame.display.set_mode((1024, 512))
-    self.display = pygame.Surface((512, 256))
-    self.player = PlayerEntity(self, (200, 150), 0, 1, 0.002)
+    self.display = pygame.Surface((1024, 512))
+    self.player = PlayerEntity(self, (200, 150), 0, 2, 0.003, 10)
     self.movement = [False, False, False, False] # N, S, E, W
-    self.map = Map(self, tile_size=32)
+    self.map = Map(self, tile_size=64)
   
   def run(self):
 
@@ -23,8 +23,6 @@ class Game:
 
       self.map.render(self.display)
       self.player.update()
-
-      print(self.player.pos)
       self.player.render(self.display)
 
       for event in pygame.event.get():
