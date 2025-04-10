@@ -1,6 +1,5 @@
 import pygame
 import math
-from scripts.map import Map
 
 pi = math.pi
 
@@ -17,6 +16,9 @@ class PlayerEntity:
 
     sin = math.sin(self.angle)
     cos = math.cos(self.angle)
+
+    print("sin" + str(sin))
+    print("cos" + str(cos))
 
     dx, dy = 0,0
 
@@ -55,10 +57,8 @@ class PlayerEntity:
         self.angle += self.rot_speed * self.game.delta_time 
 
     self.angle %= 2*pi
-    
-  def render(self, surface):
-    pygame.draw.line(surface, "yellow", (self.pos[0], self.pos[1]),
-                      (self.pos[0] + self.game.screen.get_width() * math.cos(self.angle),
-                       self.pos[1] + self.game.screen.get_width() * math.sin(self.angle) ))
-    pygame.draw.circle(surface, 'green', (self.pos[0], self.pos[1]), self.radius)
 
+
+  def render(self, surface):
+    pygame.draw.line(surface, 'red', (self.pos[0], self.pos[1]), (self.pos[0] + math.cos(self.angle)*20, self.pos[1] + math.sin(self.angle)*20))
+    pygame.draw.circle(surface, 'green', (self.pos[0], self.pos[1]), self.radius)

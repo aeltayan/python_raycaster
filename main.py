@@ -3,14 +3,17 @@ import sys
 from scripts.entity import PlayerEntity
 from scripts.map import Map
 
+width = 1024
+height = 512
+
 class Game:
 
   def __init__(self):
     pygame.init()
     self.clock = pygame.time.Clock()
     self.delta_time = 1
-    self.screen = pygame.display.set_mode((1024, 512))
-    self.display = pygame.Surface((1024, 512))
+    self.screen = pygame.display.set_mode((width, height))
+    self.display = pygame.Surface((width, height))
     self.player = PlayerEntity(self, (200, 150), 0, 2, 0.003, 10)
     self.movement = [False, False, False, False] # N, S, E, W
     self.map = Map(self, tile_size=64)
