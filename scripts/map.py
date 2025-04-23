@@ -8,7 +8,7 @@ map = [
     [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1],
+    [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
@@ -26,6 +26,13 @@ class Map:
     grid_pos = self.entity_grid_pos(pos)
 
     if map[grid_pos[1]][grid_pos[0]] == 1:
+      return True
+    return False
+  
+    
+  def check_collisions_norm(self, pos):
+
+    if map[pos[1]][pos[0]] == 1:
       return True
     return False
   

@@ -2,6 +2,7 @@ import pygame
 import sys
 from scripts.entity import PlayerEntity
 from scripts.map import Map
+from scripts.raycasting import Raycaster
 
 width = 1024
 height = 512
@@ -17,6 +18,7 @@ class Game:
     self.player = PlayerEntity(self, (200, 150), 0, 2, 0.003, 10)
     self.movement = [False, False, False, False] # N, S, E, W
     self.map = Map(self, tile_size=64)
+    self.raycaster = Raycaster(self, 0.66, width, height, tile_size=64)
   
   def run(self):
 
@@ -27,6 +29,7 @@ class Game:
       self.map.render(self.display)
       self.player.update()
       self.player.render(self.display)
+      self.raycaster.cast_rays(self.display, self.player.pos, self.player.angle)
 
       for event in pygame.event.get():
         if event.type == pygame.QUIT:

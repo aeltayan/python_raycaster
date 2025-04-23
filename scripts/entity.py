@@ -17,9 +17,6 @@ class PlayerEntity:
     sin = math.sin(self.angle)
     cos = math.cos(self.angle)
 
-    print("sin" + str(sin))
-    print("cos" + str(cos))
-
     dx, dy = 0,0
 
     speed_sin = self.speed * sin # Y movement
@@ -49,7 +46,6 @@ class PlayerEntity:
     
     if not self.game.map.check_collisions((self.pos[0], self.pos[1]+dy*self.speed)):
       self.pos[1] += dy
-
 
     if keys[pygame.K_LEFT]:
         self.angle -= self.rot_speed * self.game.delta_time
