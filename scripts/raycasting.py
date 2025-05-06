@@ -1,5 +1,6 @@
 import math
 import pygame
+from settings import *
 
 class Raycaster:
 
@@ -96,13 +97,21 @@ class Raycaster:
           final_distance = (map_y - player_y + (1 - step_y) / 2) / ray_dy
 
       
-      distance_in_pixels = final_distance * self.tile_size
-      hit_pixel_x = pos[0] + ray_dx * distance_in_pixels
-      hit_pixel_y = pos[1] + ray_dy * distance_in_pixels
+      wall_height = (screen_height) / final_distance
 
-      pygame.draw.line(surface, "red", (pos[0], pos[1]), (hit_pixel_x, hit_pixel_y))
+      self.render_wall(surface, x, wall_height)
 
-      
+
+  def render_wall(self, surface, x_pos, wall_height):
+
+      wall_end = max(0 , (screen_height // 2) - (wall_height // 2))
+      wall_start = min(screen_height, (screen_height // 2) + (wall_height // 2))
+
+      pygame.draw.line(surface, "green", (x_pos, wall_start), (x_pos, wall_end))
+      pygame.draw.line(surface, "grey",  (x_pos, wall_start), (x_pos, screen_height))
+      pygame.draw.line(surface, "cyan",  (x_pos, wall_end), (x_pos, 0))
+
+
 
       
         
