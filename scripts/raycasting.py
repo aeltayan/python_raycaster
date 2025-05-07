@@ -1,6 +1,7 @@
 import math
 import pygame
 from settings import *
+from scripts.map import map
 
 class Raycaster:
 
@@ -88,6 +89,7 @@ class Raycaster:
         if self.game.map.check_collisions_norm((map_x,map_y)):
           hit = True
       
+      
 
       #fix fisheye effect
       if hit_side == False:
@@ -99,17 +101,27 @@ class Raycaster:
       
       wall_height = (screen_height) / final_distance
 
-      self.render_wall(surface, x, wall_height)
+      max_view_distance = math.sqrt(unit_width*unit_width + unit_height*unit_height)
+      
+      falloff = 1 - (final_distance/max_view_distance)
+
+      falloff = max(0,min(falloff,1))
+      
+      self.render_wall(surface, x, wall_height, falloff)
 
 
-  def render_wall(self, surface, x_pos, wall_height):
+  def render_wall(self, surface, x_pos, wall_height,alpha):
 
       wall_end = max(0 , (screen_height // 2) - (wall_height // 2))
       wall_start = min(screen_height, (screen_height // 2) + (wall_height // 2))
 
-      pygame.draw.line(surface, "green", (x_pos, wall_start), (x_pos, wall_end))
-      pygame.draw.line(surface, "grey",  (x_pos, wall_start), (x_pos, screen_height))
-      pygame.draw.line(surface, "cyan",  (x_pos, wall_end), (x_pos, 0))
+      wall_rgb = (128*alpha, 128*alpha, 128*alpha)
+      floor_rgb = (128*alpha, 128*alpha, 128*alpha)
+      ceiling_rgb = (128*alpha,128*alpha,128*alpha)
+
+      pygame.draw.line(surface, wall_rgb, (x_pos, wall_start), (x_pos, wall_end))
+      pygame.draw.line(surface, "black",  (x_pos, wall_start), (x_pos, screen_height))
+      pygame.draw.line(surface, "black",  (x_pos, wall_end), (x_pos, 0))
 
 
 
