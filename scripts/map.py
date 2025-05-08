@@ -14,7 +14,6 @@ map = [
 ]
 
 
-
 class Map:
   def __init__(self, game, tile_size):
     self.game = game
@@ -25,14 +24,14 @@ class Map:
 
     grid_pos = self.entity_grid_pos(pos)
 
-    if map[grid_pos[1]][grid_pos[0]] == 1:
+    if map[grid_pos[1]][grid_pos[0]] != 0:
       return True
     return False
   
     
   def check_collisions_norm(self, pos):
 
-    if map[pos[1]][pos[0]] == 1:
+    if map[pos[1]][pos[0]] != 0:
       return True
     return False
   

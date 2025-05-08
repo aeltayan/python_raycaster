@@ -3,6 +3,7 @@ import sys
 from scripts.entity import PlayerEntity
 from scripts.map import Map
 from scripts.raycasting import Raycaster
+from scripts.lighting import Lighting
 from settings import *
 
 class Game:
@@ -17,6 +18,7 @@ class Game:
     self.movement = [False, False, False, False] # N, S, E, W
     self.map = Map(self, tile_size=64)
     self.raycaster = Raycaster(self, 0.66, screen_width, screen_height, tile_size=64)
+    self.lighting = Lighting(self,0.4, 0.6, 5)
   
   def run(self):
 

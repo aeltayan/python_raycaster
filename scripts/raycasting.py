@@ -98,31 +98,25 @@ class Raycaster:
       else:
           final_distance = (map_y - player_y + (1 - step_y) / 2) / ray_dy
 
-      
       wall_height = (screen_height) / final_distance
 
-      max_view_distance = math.sqrt(unit_width*unit_width + unit_height*unit_height)
-      
-      falloff = 1 - (final_distance/max_view_distance)
+      intensity = self.game.lighting.compute_light_intensity(final_distance)
+      wall_rgb = self.game.lighting.shade_color((0,128,0), intensity)
+      floor_rgb = self.game.lighting.shade_color((0,0,0), intensity)
+      ceiling_rgb = self.game.lighting.shade_color((0,0,0), intensity)
 
-      falloff = max(0,min(falloff,1))
-      
-      self.render_wall(surface, x, wall_height, falloff)
+      self.render(surface, x, wall_height, wall_rgb, floor_rgb, ceiling_rgb )
 
 
-  def render_wall(self, surface, x_pos, wall_height,alpha):
+  def render(self, surface, x_pos, wall_height, wall_rgb, floor_rgb, ceiling_rgb):
 
       wall_end = max(0 , (screen_height // 2) - (wall_height // 2))
       wall_start = min(screen_height, (screen_height // 2) + (wall_height // 2))
 
-      wall_rgb = (128*alpha, 128*alpha, 128*alpha)
-      floor_rgb = (128*alpha, 128*alpha, 128*alpha)
-      ceiling_rgb = (128*alpha,128*alpha,128*alpha)
-
-      pygame.draw.line(surface, wall_rgb, (x_pos, wall_start), (x_pos, wall_end))
-      pygame.draw.line(surface, "black",  (x_pos, wall_start), (x_pos, screen_height))
-      pygame.draw.line(surface, "black",  (x_pos, wall_end), (x_pos, 0))
-
+      if wall_rgb != (0,0,0):
+        pygame.draw.line(surface, wall_rgb, (x_pos, wall_start), (x_pos, wall_end))
+        pygame.draw.line(surface, floor_rgb,  (x_pos, wall_start), (x_pos, screen_height))
+        pygame.draw.line(surface, ceiling_rgb,  (x_pos, wall_end), (x_pos, 0))
 
 
       
