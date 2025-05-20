@@ -14,20 +14,19 @@ class Game:
     self.delta_time = 1
     self.screen = pygame.display.set_mode((screen_width, screen_height))
     self.display = pygame.Surface((screen_width, screen_height))
-    self.player = PlayerEntity(self, (200, 150), 0, 2, 0.003, 10)
+    self.player = PlayerEntity(self, (200, 150), 0, 2, 0.003, 10, 0, 10)
     self.movement = [False, False, False, False] # N, S, E, W
+    self.assets = {}
     self.map = Map(self, tile_size=64)
     self.raycaster = Raycaster(self, 0.66, screen_width, screen_height, tile_size=64)
     self.lighting = Lighting(self,0.4, 0.6, 5)
   
   def run(self):
-
     while True:
 
       self.display.fill((0, 0, 0))
-
       self.player.update()
-      self.raycaster.cast_rays(self.display, self.player.pos, self.player.angle)
+      self.raycaster.cast_rays(self.display, self.player.pos, self.player.angle, self.player.head_tilt)
 
       for event in pygame.event.get():
         if event.type == pygame.QUIT:

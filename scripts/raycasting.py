@@ -13,7 +13,7 @@ class Raycaster:
     self.height = screen_height
     self.tile_size = tile_size
 
-  def cast_rays(self, surface, pos, angle):
+  def cast_rays(self, surface, pos, angle, pitch):
 
     dx = math.cos(angle)
     dy = math.sin(angle)
@@ -29,7 +29,7 @@ class Raycaster:
       map_x = int(player_x)
       map_y = int(player_y)
 
-      camera_x = ((2*x)/self.width) - 1
+      camera_x = (2*x/self.width)-1
 
       ray_dx = dx + plane_x * camera_x
       ray_dy = dy + plane_y * camera_x
@@ -105,13 +105,15 @@ class Raycaster:
       floor_rgb = self.game.lighting.shade_color((0,0,0), intensity)
       ceiling_rgb = self.game.lighting.shade_color((0,0,0), intensity)
 
-      self.render(surface, x, wall_height, wall_rgb, floor_rgb, ceiling_rgb )
+      self.render(surface, x, wall_height, wall_rgb, floor_rgb, ceiling_rgb, pitch)
 
 
-  def render(self, surface, x_pos, wall_height, wall_rgb, floor_rgb, ceiling_rgb):
+  def render(self, surface, x_pos, wall_height, wall_rgb, floor_rgb, ceiling_rgb, pitch):
+      
 
-      wall_end = max(0 , (screen_height // 2) - (wall_height // 2))
-      wall_start = min(screen_height, (screen_height // 2) + (wall_height // 2))
+      
+      wall_end = max(0 , (screen_height // 2) - (wall_height // 2) + pitch)
+      wall_start = min(screen_height, (screen_height // 2) + (wall_height // 2) + pitch)
 
       if wall_rgb != (0,0,0):
         pygame.draw.line(surface, wall_rgb, (x_pos, wall_start), (x_pos, wall_end))
@@ -119,7 +121,7 @@ class Raycaster:
         pygame.draw.line(surface, ceiling_rgb,  (x_pos, wall_end), (x_pos, 0))
 
 
-      
+        
         
       
 
