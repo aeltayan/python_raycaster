@@ -13,6 +13,7 @@ class PlayerEntity:
     self.radius = radius
     self.head_tilt = head_tilt
     self.tilt_speed = tilt_speed
+    self.flashlight = True
   
   def update(self):
 
@@ -52,7 +53,7 @@ class PlayerEntity:
        tilt_down -= self.tilt_speed
        self.head_tilt += tilt_down
        self.head_tilt = max(-200, self.head_tilt)
-
+       
     if not self.game.map.check_collisions((self.pos[0]+dx*self.speed, self.pos[1])):
       self.pos[0] += dx
     

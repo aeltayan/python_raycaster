@@ -19,7 +19,7 @@ class Game:
     self.assets = {}
     self.map = Map(self, tile_size=64)
     self.raycaster = Raycaster(self, 0.66, screen_width, screen_height, tile_size=64)
-    self.lighting = Lighting(self,0.4, 0.6, 5)
+    self.lighting = Lighting(self,0.4, 0.8, 2)
   
   def run(self):
     while True:
@@ -27,11 +27,17 @@ class Game:
       self.display.fill((0, 0, 0))
       self.player.update()
       self.raycaster.cast_rays(self.display, self.player.pos, self.player.angle, self.player.head_tilt)
+      self.lighting.toggle_flashlight(self.player.flashlight)
 
       for event in pygame.event.get():
         if event.type == pygame.QUIT:
           pygame.quit()
           sys.exit()
+
+        if event.type == pygame.KEYDOWN:
+          if event.key == pygame.K_f:
+            self.player.flashlight = not self.player.flashlight
+    
           
       
       self.screen.blit(pygame.transform.scale(self.display, self.screen.get_size()), (0,0))
